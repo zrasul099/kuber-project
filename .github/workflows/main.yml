@@ -1,1 +1,39 @@
 
+name: build and push workflow
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: action/checkout@v3
+
+      - name: log in to AWS ECR
+        uses: action/checkout@v3
+
+      - name: AWS configure
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+        with:
+          region: ${{secrets.AWS_REGION}}
+          access-key-id: ${{secrets.AWS_ACCESS_KEY_ID}}
+          secret-access-key: ${{secrets.AWS_SECRET_KEY}}
+      - name: Docker build
+        run: |
+          IMAGE_TAG=latest
+          docker build -t ${{secrets.ECR_REPOSITORY_URI}}:$IMAGE_TAG .
+      - name: Docker push
+        run: |
+          IMAGE-TAG=latest
+          docker push ${{secrets.ECR_REPOSITORY_URI}}:$IMAGE_TAG
+
+
