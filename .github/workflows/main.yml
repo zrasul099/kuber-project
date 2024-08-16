@@ -27,9 +27,9 @@ jobs:
       - name: Docker build
         run: |
           IMAGE_TAG=latest
-          docker build -t ${{ secrets.ECR_REPOSITORY_URI }}:$IMAGE_TAG .
+          docker build -t 592524167743.dkr.ecr.us-east-2.amazonaws.com/ecr-repo:$IMAGE_TAG .
 
       - name: Docker push
         run: |
           IMAGE_TAG=latest
-          docker push ${{ secrets.ECR_REPOSITORY_URI }}:$IMAGE_TAG
+          docker push 592524167743.dkr.ecr.us-east-2.amazonaws.com/ecr-repo:$IMAGE_TAG
